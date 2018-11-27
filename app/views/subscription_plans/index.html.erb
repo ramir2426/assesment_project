@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="page-title">
+    <h3>Plan <span class="semi-bold">Upgrade</span></h3>
+  </div>
+
+  <div class="col-md-3">
+    <div class="grid simple">
+      <div class="grid-body no-border">
+        <h3 class="text-center">Starter</h3>
+
+        <ul class="no-padding list-unstyled payment-plan">
+          <li>4 Invoices / Month</li>
+          <li>Unlimited Clients</li>
+          <li>Unlimited Transactions Amount</li>
+          <li>Stripe and Braintree Payments</li>
+        </ul>
+
+        <hr/>
+
+        <h3 class="text-center">$12/month</h3>
+
+        <% if current_user.account_plan == 'starter' %>
+          <div class="text-center"><a href="<%= subscription_plans_cancel_path %>">Cancel Plan</a></div><br>
+          <div class="text-center"><a href="#" class="btn btn-success">CURRENT</a></div>
+        <% else %>
+          <div class="text-center"><a href="<%= new_subscription_plan_path(plan_name: 'starter') %>" class="btn btn-primary">CHOSE PLAN</a></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="grid simple">
+      <div class="grid-body no-border">
+        <h3 class="text-center">Team</h3>
+
+        <ul class="no-padding list-unstyled payment-plan">
+          <li><strong>40 Invoices / Month</strong></li>
+          <li>Unlimited Clients</li>
+          <li>Unlimited Transactions Amount</li>
+          <li>Stripe and Braintree Payments</li>
+          <li><strong>Recurring Payments</strong></li>
+        </ul>
+
+        <hr/>
+
+        <h3 class="text-center">$29/month</h3>
+
+        <% if current_user.account_plan == 'team' %>
+          <div class="text-center"><a href="<%= subscription_plans_cancel_path %>">Cancel Plan</a></div><br>
+          <div class="text-center"><a href="#" class="btn btn-success">CURRENT</a></div>
+        <% else %>
+          <div class="text-center"><a href="<%= new_subscription_plan_path(plan_name: 'team') %>" class="btn btn-primary">CHOSE PLAN</a></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="grid simple">
+      <div class="grid-body no-border">
+        <h3 class="text-center">Agency</h3>
+
+        <ul class="no-padding list-unstyled payment-plan">
+          <li><strong>Unlimited Invoices</strong></li>
+          <li>Unlimited Clients</li>
+          <li>Unlimited Transactions Amount</li>
+          <li>Stripe and Braintree Payments</li>
+          <li><strong>Recurring Payments</strong></li>
+        </ul>
+
+        <hr/>
+
+        <h3 class="text-center">$99/month</h3>
+
+        <% if current_user.account_plan == 'agency' %>
+          <div class="text-center"><a href="<%= subscription_plans_cancel_path %>">Cancel Plan</a></div><br>
+          <div class="text-center"><a href="#" class="btn btn-success">CURRENT</a></div>
+        <% else %>
+          <div class="text-center"><a href="<%= new_subscription_plan_path(plan_name: 'agency') %>" class="btn btn-primary">CHOSE PLAN</a></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div id="home-hero">
+  <div class="col-md-9 col-center">
+    <div class="col-md-6 no-padding features">
+      <strong>Send invoices.</strong>
+      <strong>Accept payments.</strong>
+      <strong>One time and recurring.</strong>
+
+      <a class="btn home-btn" href="/users/sign_up">Sign Up Free</a>
+
+      <br><br><br><div><a href="mailto:resiboapp@helpful.io" class="question" data-helpful="resiboapp">Have a question?</a></div>
+    </div>
+
+    <div class="col-md-6 text-center">
+      <img src="/assets/laptop-ee1a569143ba5bf99ccc39cdc2794285.png" alt="Laptop">
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="home-feature-section">
+  <div id="home-features" class="col-md-9 col-center">
+
+    <div class="col-center feature">
+      <div class="col-md-6">
+        <h3>Invoices paid online</h3>
+        <p>Don’t just send invoices. Allow your clients to pay you with a credit card online with our integration with major payment gateways such as Stripe or Braintree.</p>
+      </div>
+      <%= image_tag 'hp_invoice.png', class: 'col-md-6' %>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-center feature">
+      <%= image_tag 'hp_autocharge.png', class: 'col-md-6' %>
+      <div class="col-md-6">
+        <h3>Recurring payments</h3>
+        <p>Let your clients enter their payment details once and charge them automatically weeky, monthly or in any other interval you wish.</p>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-center feature">
+      <div class="col-md-6">
+        <h3>Available worldwide</h3>
+        <p>With coverage in 46 countries and over 130 currencies, you can accept payments for invoices almost anywhere.</p>
+      </div>
+      <%= image_tag 'hp_currencies.png', class: 'col-md-6' %>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-center feature">
+      <%= image_tag 'hp_billing.png', class: 'col-md-6' %>
+      <div class="col-md-6">
+        <h3>Stripe and Braintree integration</h3>
+        <p>Your payments are seemlesly securely processed by industry-leading PCI-complient  payment gateways.</p>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-center feature">
+      <div class="col-md-6">
+        <h3>Adaptive interface</h3>
+        <p>Don’t repeat yourself typing the same invoice description all the time. Utilize our interface optimized for speed.</p>
+      </div>
+      <%= image_tag 'hp_description.png', class: 'col-md-6' %>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
+<div class="col-center col-md-10" id="home-pricing">
+  <div>
+    <h3 class="text-center">Simple pricing</h3>
+
+    <div class="col-center">
+      <div class="text-center plan-item">
+        <h4>Starter</h4>
+        <ul class="list-unstyled">
+          <li>4 Invoices / month</li>
+          <li>Unlimited clients</li>
+          <li>Unlimited transactions amount</li>
+          <li>Stripe and Braintree payments</li>
+        </ul>
+
+        <span>$12 / month</span>
+      </div>
+
+      <div class="text-center plan-item">
+        <h4>Team</h4>
+        <ul class="list-unstyled">
+          <li><strong>40 Invoices / month</strong></li>
+          <li>Unlimited clients</li>
+          <li>Unlimited transactions amount</li>
+          <li>Stripe and Braintree payments</li>
+          <li><strong>Recurring payments</strong></li>
+        </ul>
+
+        <span>$29 / month</span>
+      </div>
+
+      <div class="text-center plan-item">
+        <h4>Pro</h4>
+        <ul class="list-unstyled">
+          <li><strong>Unlimited invoices</strong></li>
+          <li>Unlimited clients</li>
+          <li>Unlimited transactions amount</li>
+          <li>Stripe and Braintree payments</li>
+          <li><strong>Recurring payments</strong></li>
+        </ul>
+
+        <span>$99 / month</span>
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div id="home-action-bar">
+  <div class="col-md-9 col-center text-center">
+    <span>Get your free 14-day trial</span>
+    <%= link_to 'Get Started Now', new_user_registration_path, class: 'btn home-btn' %>
+  </div>
+</div>

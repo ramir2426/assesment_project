@@ -1,0 +1,131 @@
+<div class="col-md-11">
+  <div class="grid simple">
+    <div class="grid-body no-border invoice-body">
+
+      <%= form_for @recurring do |f| %>
+
+        <% if current_user.logo.present? %>
+          <%= image_tag current_user.logo.thumb.url, height: 30, style: 'margin-top: 12px;' %><br>
+        <% end %>
+
+        <div class="row">
+          <div class="grid simple">
+            <div class="grid-body no-border no-padding">
+              <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+                <strong>PROFILE NAME</strong>
+                <div><%= f.text_field :profile_name, class: 'text-center col-md-10 col-xs-10 col-center', required: true, placeholder: 'e.g. Design retainer' %></div>
+              </div>
+
+              <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+                <strong>START DATE</strong>
+                <div><%= f.text_field :from_date, class: 'date-input text-center col-md-10 col-xs-10 col-center', required: true %></div>
+              </div>
+
+              <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+                <strong>END DATE</strong>
+                <div><%= f.text_field :to_date, class: 'date-input text-center col-md-10 col-xs-10 col-center', required: true %></div>
+              </div>
+
+              <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+                <strong>INTERVAL (DAYS)</strong>
+                <div><%= f.number_field :interval_in_days, class: 'text-center col-md-10 col-xs-10 col-center', required: true %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-xs-4">
+
+            <h5 class="semi-bold">FROM</h5>
+            <% if current_user.profile_complete? %>
+              <%= simple_format @from_company %>
+            <% else %>
+              <br><%= link_to 'Enter your details', edit_account_path %>
+            <% end %>
+          </div>
+
+          <div class="col-md-4 col-xs-4">
+            <h5 class="semi-bold">TO</h5>
+
+            <div id="invoice-to-client" style="display: none;"></div>
+            <%= f.select :client_id, @client_list, { include_blank: true }, { required: true, class: 'col-xs-12 col-md-8 invoice_client_id' } %>
+          </div>
+
+          <div class="col-md-4 col-xs-4">
+            <h5 class="semi-bold no-padding text-right">DUE IN DAYS</h5>
+            <%= f.number_field :due_in_days, class: 'text-right pull-right col-xs-8 col-md-6' %>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <br>
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="width:67%; text-left">DESCRIPTION</th>
+              <th style="width:10%" class="text-center">QTY</th>
+              <th style="width:12%" class="text-center">UNIT PRICE</th>
+              <th style="width:11%" class="text-right">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recurring.invoice_items.each.with_index do |item, index| %>
+              <tr class="invoice-items" data-id="<%= index %>">
+                <td><%= text_field_tag "invoice_items[#{index}][description]", item[:description], class: 'full-width item-description' %></td>
+                <td class="text-center"><%= number_field_tag "invoice_items[#{index}][qty]", item[:qty], class: 'full-width qty', required: true, min: 1, step: 'any' %></td>
+                <td class="text-center"><%= number_field_tag "invoice_items[#{index}][unit_price]", item[:unit_price], class: 'full-width unit-price', required: true, min: 1, step: 'any' %></td>
+                <td class="text-right" style="vertical-align: middle"><span class="total"><%= (item[:qty].to_f * item[:unit_price].to_f).round(2) %></span> <span class="invoice-currency"><%= @recurring.currency %></span></td>
+              </tr>
+            <% end %>
+
+            <!--<tr>
+              <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
+              <td class="text-right">$0.00</td>
+            </tr>-->
+
+            <tr>
+              <td></td><td class="text-right" style="vertical-align: middle;"><strong>Tax</strong></td>
+              <td class="text-right"><%= f.text_field :tax_name, class: 'text-center full-width', placeholder: '(e.g. VAT)' %></td>
+              <td class="text-right"><%= f.number_field :tax_amount, step: 'any', class: 'text-right full-width tax_amount', placeholder: 'Amount' %></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><strong>Subtotal</strong></td>
+              <td class="text-right"><span class="totals"><%= @recurring.subtotal %></span> <span class="invoice-currency"><%= @recurring.currency %></span></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><strong>Total</strong></td>
+              <td class="text-right"><strong><span class="totals"><%= @recurring.total %></span> <span class="invoice-currency"><%= @recurring.currency %></span></strong></td>
+            </tr>
+
+            <tr>
+              <td colspan="2"><br><%= f.text_area :notes, class: 'full-width', placeholder: 'Optional notes' %></td>
+              </td><td class="text-right" colspan="1"><br><%= f.select :currency, Currencies::LIST, {}, style: 'width: auto;' %></td>
+              </td><td class="text-right" colspan="1"><br><%= f.select :payment_gateway, Invoice::PAYMENT_GATEWAYS.map { |g| [g.capitalize, g] }, { include_blank: 'Payments disabled' }, style: 'width: auto;' %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="form-group">
+          <div class="pull-right">
+            <%= link_to 'Cancel', recurring_invoices_path, class: 'btn btn-white btn-cons' %>
+            <button type="submit" class="btn btn-success btn-cons">Save</button>
+          </div>
+
+          <% unless @recurring.new_record? %>
+            <i class="fa fa-trash-o"><%= link_to 'Delete Recurring Invoice', recurring_invoice_path, method: :delete, class: 'delete-form-link', data: { confirm: "Are you sure?" } %></i>
+          <% end %>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+      <% end %>
+    </div>
+  </div>
+</div>

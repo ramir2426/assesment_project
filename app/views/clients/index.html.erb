@@ -1,0 +1,56 @@
+<div class="page-title">
+  <h3>Clients - <span class="semi-bold">List</span></h3>
+  <%= link_to 'New Client', new_client_path, class: 'btn btn-primary f-right' %>
+</div>
+
+<div class="row dataTables_wrapper">
+  <div class="col-md-12">
+
+    <div class="grid simple ">
+      <div class="grid-body no-border">
+          <table class="table clients">
+            <thead>
+              <tr>
+                <th style="width:11%">Client</th>
+                <th style="width:11%">Contact Name</th>
+                <th style="width:11%">Company Size</th>
+                <th style="width:11%">Email</th>
+                <th style="width:7%">Currency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @clients.each do |client| %>
+                <tr class="item">
+                  <td class="v-align-middle"><%= link_to client.business_name, edit_client_path(client) %></td>
+                  <td class="v-align-middle"><%= link_to client.contact_name, edit_client_path(client)  %></td>
+                  <td class="v-align-middle"><%= link_to client.company_size, edit_client_path(client)  %></td>
+                  <td class="v-align-middle"><%= link_to client.email, edit_client_path(client) %></td>
+                  <td class="v-align-middle"><%= link_to client.currency, edit_client_path(client)  %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="dataTables_paginate paging_bootstrap pagination">
+                <!--<ul>
+                  <li class="prev disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li class="next"><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>-->
+
+                <%= paginate @clients %>
+              </div>
+
+              <!--<div class="dataTables_info" id="example2_info">Showing <b>1 to 10</b> of 57 entries</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

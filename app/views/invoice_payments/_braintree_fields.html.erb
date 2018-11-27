@@ -1,0 +1,38 @@
+<%= form_tag '/charge_card', class: 'payment-form', id: 'payment-form-braintree' do %>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" placeholder="Card Number" class="form-control cc-num" size="20" autocomplete="off" data-encrypted-name="number" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" class="form-control cc-exp" placeholder="Expiration (MM / YYYY)" data-braintree="exp-month" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" class="form-control cc-cvc" placeholder="CVC" size="4" autocomplete="off" data-encrypted-name="cvv" required>
+    </div>
+  </div>
+
+  <% if @recurring %>
+    <div class="form-group">
+      <div class="controls rec-con">
+        <input type="checkbox" id="recurring-confirmation" required>
+        <label for="recurring-confirmation">My card will be charged every <%= @recurring.interval_in_days %> days</label>
+      </div>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :secure_id, @invoice.secure_id %>
+  <%= hidden_field_tag :gateway, @invoice.payment_gateway %>
+
+  <div class="payment-errors"></div>
+
+  <input type="hidden" id="braintree-client-nonce" data-braintree-client-nonce='<%= @braintee_client_token %>'>
+
+  <input type="submit" value="PAY NOW" class="btn pay-btn btn-success btn-cons"></submit>
+<% end %>

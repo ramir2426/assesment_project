@@ -1,0 +1,72 @@
+<%= form_for @client do |f| %>
+  <div class="grid-body no-border"> <br>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label class="form-label">Business Name</label>
+          <div class="controls">
+            <%= f.text_field :business_name, class: 'form-control', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Name</label>
+          <div class="controls">
+            <%= f.text_field :contact_name, class: 'form-control', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Company Size</label>
+          <div class="controls">
+            <%= f.number_field :company_size, class: 'form-control', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <div class="controls">
+            <%= f.email_field :email, class: 'form-control', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business Address</label>
+          <div class="controls">
+            <%= f.text_area :business_address, class: 'form-control', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Currency</label>
+          <div class="controls">
+            <%= f.select :currency, Currencies::LIST %>
+          </div>
+        </div>
+
+        <!--<div class="form-group">
+          <label class="form-label">Invoice numbering</label>
+          <span class="help">2015-1, 2015-2, 2015-3, john-1, john-2, john-3, etc</span>
+          <div class="controls">
+            <select>
+              <option>No prefix</option>
+              <option>New prefix</option>
+              <option>2015</option>
+            </select>
+          </div>
+        </div>-->
+
+        <div class="form-group">
+          <div class="pull-right">
+            <button type="submit" class="btn btn-success btn-cons"><i class="icon-ok"></i> Save</button>
+            <%= link_to 'Cancel', clients_path, class: 'btn btn-white btn-cons' %>
+          </div>
+
+          <% unless @client.new_record? %>
+            <i class="fa fa-trash-o"><%= link_to 'Delete Client', client_path, method: :delete, class: 'delete-form-link', data: {confirm: "Are you sure?" } %></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

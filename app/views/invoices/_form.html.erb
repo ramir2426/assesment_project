@@ -1,0 +1,123 @@
+  <div class="grid-body no-border invoice-body">
+
+  <%= form_for @invoice do |f| %>
+
+    <% if current_user.logo.present? %>
+      <%= image_tag current_user.logo.thumb.url, height: 50, class: 'invoice-logo' %><br>
+    <% end %>
+
+    <div class="row col-md-9 col-xs-8 pull-left">
+      <div class="col-md-5 col-xs-6">
+        <h5 class="semi-bold">FROM</h5>
+          <%= simple_format @invoice.from_company %>
+          <%= link_to 'Enter your details', edit_account_path %>
+      </div>
+
+      <div class="col-md-5 col-xs-6">
+        <h5 class="semi-bold">TO</h5>
+
+        <div id="invoice-to-client" style="display: none;"></div>
+        <%= f.select :client_id, @client_list, { include_blank: true }, { required: true, class: 'col-md-10 col-xs-10 invoice_client_id' } %>
+      </div>
+    </div>
+
+    <div class="row col-md-3 col-xs-4 pull-right">
+      <div class="invoice-dates pull-right">
+        <div class="invoice-dates-key">INVOICE NO</div>
+        <div class="invoice-dates-val"><%= f.text_field :invoice_number %></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="invoice-dates pull-right">
+        <div class="invoice-dates-key">ISSUED</div>
+        <div class="invoice-dates-val"><%= f.text_field :date_issued, class: 'date-input' %></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="invoice-dates pull-right">
+        <div class="invoice-dates-key">Due</div>
+        <div class="invoice-dates-val"><%= f.text_field :due_date, class: 'date-input' %></div>
+        <div class="clearfix"></div>
+      </div>
+      <br>
+      <div class="well-small">
+        <div class="pull-left">Total Due : </div>
+        <div class="pull-right"><span class="totals"><%= @invoice.total_due %></span> <span class="invoice-currency"><%= @invoice.currency %></span> </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="width:67%; text-left">DESCRIPTION</th>
+          <th style="width:10%" class="text-center">QTY</th>
+          <th style="width:12%" class="text-center">UNIT PRICE</th>
+          <th style="width:11%" class="text-right">AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoice.invoice_items.each.with_index do |item, index| %>
+          <tr class="invoice-items">
+            <td><%= text_field_tag "invoice_items[#{index}][description]", item[:description], class: 'full-width item-description invoice-item-autocomplete', "data-id" => index %></td>
+            <td class="text-center"><%= number_field_tag "invoice_items[#{index}][qty]", item[:qty], class: 'full-width qty', required: true, min: 1, step: 'any' %></td>
+            <td class="text-center"><%= number_field_tag "invoice_items[#{index}][unit_price]", item[:unit_price], class: 'full-width unit-price', required: true, min: 1, step: 'any' %></td>
+            <td class="text-right" style="vertical-align: middle;"><span class="total"><%= (item[:qty].to_f * item[:unit_price].to_f).round(2) %></span> <span class="invoice-currency"><%= @invoice.currency %></span></td>
+          </tr>
+        <% end %>
+
+        <!--<tr>
+          <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
+          <td class="text-right">$0.00</td>
+        </tr>-->
+
+        <tr>
+          <td></td><td class="text-right" style="vertical-align: middle;"><strong>Tax</strong></td>
+          <td class="text-right"><%= f.text_field :tax_name, class: 'text-center full-width', placeholder: '(e.g. VAT)' %></td>
+          <td class="text-right"><%= f.number_field :tax_amount, step: 'any', class: 'text-right full-width tax_amount', placeholder: 'Amount' %></td>
+        </tr>
+
+        <tr>
+          <td colspan="2"></td>
+          <td class="text-right"><strong>Subtotal</strong></td>
+          <td class="text-right"><span class="totals"><%= @invoice.subtotal %></span> <span class="invoice-currency"><%= @invoice.currency %></span></td>
+        </tr>
+
+        <tr>
+          <td colspan="2"></td>
+          <td class="text-right"><strong>Total</strong></td>
+          <td class="text-right"><strong><span class="totals"><%= @invoice.total %></span> <span class="invoice-currency"><%= @invoice.currency %></span></strong></td>
+        </tr>
+
+        <tr>
+          <td colspan="2"><br><%= f.text_area :notes, class: 'full-width', placeholder: 'Optional notes' %></td>
+          </td><td class="text-right" colspan="1"><br><%= f.select :currency, Currencies::LIST %></td>
+          </td><td class="text-right" colspan="1"><br><%= f.select :payment_gateway, Invoice::PAYMENT_GATEWAYS.map { |g| [g.capitalize, g] }, { include_blank: 'Payments disabled' }, style: 'width: auto;' %></td>
+        </tr>
+
+        <% unless current_user.hide_braintree_fx_notice %>
+          <tr class="<%= @invoice.payment_gateway == 'braintree' ? '' : 'hidden' %>" id="braintree-fx-notice">
+            <td class="no-border" colspan="3">Braintree gateway can't be set to a specific currency. You must set it directly in Braintree by asking their support.</td>
+            <td class="no-border text-right"><a href="#" id="hide-braintree-fx-notice">Don't show again</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <div class="pull-right">
+        <%= link_to 'Cancel', invoices_path, class: 'btn btn-white btn-cons' %>
+        <button type="submit" class="btn btn-success btn-cons"><%= @invoice.new_record? ? 'Create and Send' : 'Save' %></button>
+      </div>
+
+      <% unless @invoice.new_record? %>
+        <i class="fa fa-trash-o"><%= link_to 'Delete Invoice', invoice_path, method: :delete, class: 'delete-form-link', data: { confirm: "Are you sure?" } %></i>
+      <% end %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+  <% end %>
+</div>

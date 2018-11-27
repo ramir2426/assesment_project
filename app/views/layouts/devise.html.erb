@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta charset="utf-8" />
+<title>Resibo - Invoicing software</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="Create invoices. Accept credit card payments" name="description" />
+<meta content="Sergey Goncharov" name="author" />
+
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag    "application", media: "all" %>
+<%= stylesheet_link_tag    "override", media: "all" %>
+
+<%= csrf_meta_tags %>
+
+</head>
+
+<body class="white-body devise">
+
+  <div id="header">
+    <div class="col-md-9 col-center">
+      <a href="/"><h2 class="pull-left no-padding no-margin">Resibo</h2></a>
+
+      <div class="pull-right">
+        <% if request.path == '/' %>
+          <a href="/">FEATURES</a>
+          <a href="/">PRICING</a>
+        <% else %>
+          <a href="/">FEATURES</a>
+          <a href="/">PRICING</a>
+        <% end %>
+        <%= link_to 'SIGN UP', new_user_registration_path %>
+        <%= link_to 'LOGIN', new_user_session_path %>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div id="home-content">
+    <%= yield %>
+  </div>
+
+  <div id="home-footer" class="text-center">
+    <div class="col-md-9 col-center">
+      <span>&copy; 2015 Resibo</span>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+  </div>
+
+  <% unless session[:developer] == true %>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61645115-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script type="text/javascript">
+      var _mfq = _mfq || [];
+      (function () {
+        var mf = document.createElement("script"); mf.type = "text/javascript"; mf.async = true;
+        mf.src = "//cdn.mouseflow.com/projects/6e84fec4-b9ef-4de9-b852-464ebf6f9a07.js";
+        document.getElementsByTagName("head")[0].appendChild(mf);
+      })();
+    </script>
+  <% end %>
+
+  <script async src="https://assets.helpful.io/assets/widget.js"></script>
+</body>
+</html>

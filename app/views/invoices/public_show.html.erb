@@ -1,0 +1,159 @@
+ <div class="row">
+
+  <div class="col-center">
+    <div class="col-md-<%= (@invoice.payment_gateway && @invoice.user.payment_gateway_set?(@invoice.payment_gateway) && (!@invoice.paid? || @invoice.recurring_invoice)) ? '9' : '11 col-center' %>">
+
+    <% if @recurring && @recurring.payment_gateway && @invoice.user.payment_gateway_set?(@invoice.payment_gateway) %>
+      <div class="grid simple">
+        <div class="grid-body no-border invoice-body">
+
+          <p>
+            This is a recurring invoice. Your card will be charged every <%= @recurring.interval_in_days %> days.
+            You will be able to cancel recurring charges any time by coming to this page and clicking cancel.
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+      <div class="grid simple">
+        <div class="grid-body no-border invoice-body">
+
+          <div class="pull-right">
+            <h2>Invoice</h2>
+          </div>
+
+          <% if @invoice.user.logo.present? %>
+            <%= image_tag @invoice.user.logo.thumb.url, height: 30, style: 'margin-top: 12px;' %><br>
+          <% end %>
+
+          <div class="clearfix"></div>
+
+          <div class="row invoice-headers">
+
+          <div class="row col-md-7 col-xs-7 pull-left">
+            <div class="col-md-5 col-xs-4">
+              <h5 class="semi-bold">FROM</h5>
+              <address>
+                <%= simple_format(@invoice.from_company) %><br>
+              </address>
+            </div>
+
+            <div class="col-md-5 col-xs-4">
+              <h5 class="semi-bold">TO</h5>
+              <address>
+                <%= simple_format(@invoice.to_company) %><br>
+              </address>
+            </div>
+          </div>
+
+          <div class="col-md-5 col-xs-5 pull-right">
+            <table class="pull-right">
+              <tr>
+                <td class="col-md-8 col-xs-8 text-left no-padding">INVOICE NO.</td>
+                <td><%= @invoice.invoice_number %></td>
+              </tr>
+              <tr>
+                <td class="col-md-8 col-xs-8 text-left no-padding">DATE ISSUED</td>
+                <td><%= @invoice.date_issued %></td>
+              </tr>
+              <tr>
+                <td class="col-md-8 col-xs-8 text-left no-padding">DUE DATE</td>
+                <td><%= @invoice.due_date %></td>
+              </tr>
+              <tr>
+                <td class="col-md-8 col-xs-8 text-left no-padding"><strong>Total Due</strong></td>
+                <td><%= @invoice.total_due %> USD </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+          <div class="clearfix"></div>
+          <br><br>
+
+          <% if @invoice.paid? %>
+            <span class="btn btn-primary pull-right">Invoice paid</span>
+            <br><br><br><br>
+          <% end %>
+
+          <br><br>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-left">DESCRIPTION</th>
+                <th style="width:60px" class="unseen text-center">QTY</th>
+                <th style="width:150px" class="text-right">UNIT PRICE</th>
+                <th style="width:150px" class="text-right">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @invoice.invoice_items.each do |item| %>
+                <tr>
+                  <td><%= item[:description] %></td>
+                  <td class="unseen text-center"><%= item[:qty] %></td>
+                  <td class="text-right"><%= item[:unit_price] %> <%= @invoice.currency %></td>
+                  <td class="text-right"><%= item[:unit_price].to_f * item[:qty].to_f %> <%= @invoice.currency %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="2"></td>
+                <td class="text-right"><strong><%= @invoice.tax_name || 'Tax' %></strong></td>
+                <td class="text-right"><%= @invoice.tax_amount %> <%= @invoice.currency %></td>
+              </tr>
+              <tr>
+                <td></td><td></td>
+                <td class="text-right"><strong>Subtotal</strong></td>
+                <td class="text-right"><%= @invoice.subtotal %> <%= @invoice.currency %></td>
+              </tr>
+              <!--<tr>
+                <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
+                <td class="text-right">$0.00</td>
+              </tr>-->
+              <tr>
+                <td></td><td></td>
+                <td class="text-right"><strong>Total</strong></td>
+                <td class="text-right"><strong><%= @invoice.total %> <%= @invoice.currency %></strong></td>
+              </tr>
+
+              <tr>
+                <td colspan="2" rowspan="4" class="no-border"><br><p><%= @invoice.notes %></p>
+                <!--<h5 class="text-right semi-bold">Thank you for your business</h5></td>-->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <% if (@invoice.payment_gateway && !@invoice.paid? && @invoice.user.payment_gateway_set?(@invoice.payment_gateway)) || (@invoice.recurring_invoice && @invoice.user.payment_gateway_set?(@invoice.payment_gateway)) %>
+      <div class="col-md-3 payment-form">
+
+        <div class="grid simple">
+          <div class="grid-body no-border invoice-body">
+
+            <div class="pull-left">
+              <h2>Payment</h2>
+              <br>
+            </div>
+
+             <% if @recurring && @recurring.card_saved? %>
+              <br><br><br><br>
+              <p>Payment card is saved and is being charged <%= "#{@invoice.total} #{@invoice.currency}" %> every <%= @recurring.interval_in_days %> days.</p>
+              <br>
+
+              <%= form_tag '/cancel_recurring', method: 'delete', class: 'payment-form' do %>
+                <%= hidden_field_tag :secure_id, @invoice.secure_id %>
+                <input type="submit" class="btn pay-btn btn-danger btn-cons" value='Cancel and Delete Card'>
+              <% end %>
+
+            <% else %>
+              <%= render 'invoice_payments/braintree_fields' if @invoice.payment_gateway == 'braintree' && @invoice.user.payment_gateway_set?('braintree') %>
+              <%= render 'invoice_payments/stripe_fields'    if @invoice.payment_gateway == 'stripe' && @invoice.user.payment_gateway_set?('stripe') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

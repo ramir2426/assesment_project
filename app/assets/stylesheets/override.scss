@@ -1,0 +1,413 @@
+/*input:focus[type=text], input[type=email]:focus, input[type=password]:focus, select:focus, textarea:focus {
+  background-color: #FFF;
+}*/
+
+.breadcrumb a {
+  margin-left: 0 !important;
+}
+
+.breadcrumb li {
+  padding-left: 0 !important;
+}
+
+.dataTables_wrapper a {
+  color: #576475;
+}
+
+.white-body {
+  background: #FFF;
+}
+
+.invoice-items .twitter-typeahead {
+  width: 100%;
+}
+
+#home-features p {
+  text-align: justify;
+  font-size: 16px;
+  font-family: 'Open Sans';
+  line-height: 26px;
+}
+
+#home-features .feature {
+  margin: 0 auto;
+  margin-top: 75px;
+}
+
+#home-features .feature h3 {
+  font-weight: 400;
+}
+
+#home-features .feature > div, #home-features .feature > img {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  width: 49%;
+}
+
+.tt-suggestion {
+  line-height: 20px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  padding: 4px 11px;
+  cursor: pointer;
+}
+
+.tt-suggestion:hover {
+  background: #f6f6f6;
+}
+
+.tt-menu {
+  width: 100%;
+  background: #FFF;
+  border: 1px solid #e5e9ec;
+  border-top: 0;
+}
+.delete-form-link {
+  margin-left: 5px;
+  margin-top: 15px;
+  display: inline-block;
+  color: #55606e;
+}
+
+.rec-con label {
+  margin-left: 5px;
+  display: inline;
+}
+
+#braintree-fx-notice {
+  background: #FFFDF1;
+}
+
+#activate-account-notice {
+  position: fixed;
+  bottom: 65px;
+  left: 0;
+  width: 250px;
+}
+
+#activate-account-notice a {
+  color: #F6F6F6;
+}
+
+#activate-account-notice div {
+  color: #9B9B9B;
+  margin-bottom: 7px;
+}
+
+.invoice-company-fields {
+  width: 100%;
+  min-height: 85px;
+}
+
+.footer-widget strong {
+  color: #CECECE;
+}
+
+.plan-cencel-message {
+  padding: 20px !important;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+#i-understand {
+  font-size: 16px;
+}
+
+ul.payment-plan > li {
+  line-height: 28px;
+}
+
+.invoice-dates-key {
+  margin-top: 9px;
+}
+
+.invoice-dates {
+  margin-bottom: 10px;
+}
+
+.invoice-logo {
+  margin-left: 14px;
+}
+
+#invoice_currency {
+  width: auto;
+}
+
+body.public {
+  background: #f6f6f6;
+}
+
+body.public .container {
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.static-content {
+  margin-top: 20px !important;
+  margin-bottom: 40px !important;
+}
+
+.col-center {
+  margin: 0 auto;
+  float: none;
+}
+
+.payment-form .pay-btn {
+  width: 100%;
+}
+
+.parsley-error {
+  border: 1px solid #DC695C !important;
+}
+
+#header {
+  background: #32b38c;
+  padding: 15px 0;
+}
+
+#header h2 {
+  color: #FFF;
+}
+
+.devise #header {
+  background: #FFF;
+}
+
+#home-pricing {
+  padding-bottom: 20px;
+  margin-top: -30px;
+}
+
+#home-pricing h3 {
+  padding: 35px 0 25px 0;
+  color: #000;
+  font-weight: normal;
+  font-size: 28px;
+}
+
+#home-pricing .plan-item {
+  background-color: #FFF;
+  padding: 20px 0px;
+  font-size: 16px;
+  color: #000;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin: 3%;
+  width: 27.333%;
+  float: left;
+  margin-top: 0;
+}
+
+#home-pricing .plan-item ul li {
+  line-height: 35px;
+}
+
+#home-pricing .plan-item h4 {
+  font-size: 22px;
+  font-weight: normal;
+  color: #000;
+  margin: 0 0 10px 0;
+}
+
+#home-pricing .plan-item span {
+  font-size: 18px;
+}
+
+#home-action-bar {
+  background: #32b38c;
+  padding: 25px 0;
+}
+
+#home-action-bar span {
+  font-size: 28px;
+  font-weight: 300;
+  margin-right: 100px;
+  color: #FFF;
+  font-family: 'Open Sans';
+  vertical-align: middle;
+}
+
+.home-person {
+  margin: 30px 0;
+}
+
+.home-person img {
+  width: 80px;
+}
+
+.home-person b {
+  margin-right: 15px;
+}
+
+#home-hero {
+  background: #32b38c;
+  padding: 40px 0;
+}
+
+#home-hero .why-points {
+  margin-top: 30px;
+}
+
+#home-hero .home-btn {
+  margin-top: 30px;
+}
+
+#home-hero a.question {
+  color: #FFF;
+  font-size: 15px;
+  font-weight: 300;
+  font-family: "Open Sans";
+}
+
+.home-feature-section {
+  margin: 65px 0;
+  color: #000;
+}
+
+.home-feature-section * {
+  color: #000;
+}
+
+.home-feature-section h3 {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.home-feature-section p {
+  font-size: 16px;
+  text-align: justify;
+  line-height: 25px;
+}
+
+#home-hero .features {
+  padding-top: 50px;
+}
+
+.home-btn, .home-btn:hover {
+  background: #32b38c;
+  color: #FFF;
+  font-size: 18px;
+  padding: 15px 20px;
+  font-weight: 300;
+  border: 1px solid #FFF;
+}
+
+#home-action-bar .home-btn, #home-action-bar .home-btn:hover {
+  border: 1px solid #FFF;
+}
+
+#home-hero .features strong {
+  font-size: 34px;
+  display: block;
+  font-weight: 300;
+  color: #FFF;
+  font-family: 'Open Sans';
+}
+
+#home-footer {
+  background: #2F3D43;
+  padding-top: 20px;
+  height: 150px;
+}
+
+#home-pricing {
+  pading: 40px 0;
+}
+
+#home-footer * {
+  color: #EEE;
+  padding: 0 15px;
+}
+
+#home-content {
+  margin: 0;
+}
+
+.devise #home-content {
+  background: #F6F6F6;
+}
+
+.devise .login-container {
+  margin: 6% 0;
+}
+
+.devise .login-container h2 {
+  color: #000;
+}
+
+.devise .login-container input {
+  height: 45px;
+  margin: 6px 0;
+}
+
+.devise .login-container input[type=submit] {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+
+.devise .login-container .form-body p {
+  color: #9B9B9B;
+  line-height: 22px;
+}
+
+.devise .login-container .form-body {
+  border: 1px solid #E2E2E2;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+#header div div a {
+  color: #FFF;
+  padding: 0 15px;
+}
+
+.devise #header div div a {
+  color: #000;
+}
+
+.devise #header h2 {
+  color: #000;
+}
+
+#header div div {
+  margin-top: 10px;
+}
+
+#header-logo {
+  color: #F6F6F6;
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+.parsley-errors-list {
+  display: none;
+}
+
+.payment-errors {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.invoice-headers {
+  margin-top: 20px;
+}
+
+.invoice-headers h5 {
+  margin-top: 0;
+}
+
+.recurring-invoice-header {
+  padding: 20px 0;
+}
+
+.recurring-invoice-header div {
+  margin-top: 10px;
+}

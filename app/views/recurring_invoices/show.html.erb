@@ -1,0 +1,135 @@
+<div class="page-title">
+  <h3>Recurring Invoices - <span class="semi-bold"><%= @recurring.profile_name %></span></h3>
+</div>
+
+  <div class="row">
+    <div class="col-md-11 col-xs-11">
+      <div class="grid simple">
+        <div class="grid-body no-border no-padding">
+          <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+            <strong>START DATE</strong>
+            <div><%= @recurring.from_date %></div>
+          </div>
+
+          <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+            <strong>END DATE</strong>
+            <div><%= @recurring.to_date %></div>
+          </div>
+
+          <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+            <strong>INTERVAL</strong>
+            <div>Every <%= @recurring.interval_in_days %> days</div>
+          </div>
+
+          <div class="col-md-3 col-xs-3 text-center recurring-invoice-header">
+            <strong>AUTO-CHARGING</strong>
+            <div><%= @recurring.auto_charge? %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-1 col-xs-1"></div>
+  </div>
+ <div class="row">
+  <div class="col-md-11 col-xs-11">
+    <div class="grid simple">
+      <div class="grid-body no-border invoice-body">
+
+        <% if current_user.logo.present? %>
+          <%= image_tag current_user.logo.thumb.url, height: 30, style: 'margin-top: 12px;' %><br>
+        <% end %>
+
+        <div class="row invoice-headers">
+          <div class="row col-md-9 col-xs-9 pull-left">
+            <div class="col-md-5 col-xs-6">
+              <h5 class="semi-bold">FROM</h5>
+              <address>
+                <%= simple_format(@from_company) %><br>
+              </address>
+            </div>
+
+            <div class="row col-md-5 col-xs-6">
+              <h5 class="semi-bold">TO</h5>
+              <address>
+                <%= simple_format(@recurring.client.to_company) %><br>
+              </address>
+            </div>
+          </div>
+
+          <div class="col-md-3 pull-right">
+            <div>
+              <div class="pull-left"> DUE IN (DAYS) : </div>
+              <div class="pull-right"> <%= @recurring.due_in_days %> </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <br>
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="text-left">DESCRIPTION</th>
+              <th style="width:60px" class="unseen text-center">QTY</th>
+              <th style="width:150px" class="text-right">UNIT PRICE</th>
+              <th style="width:150px" class="text-right">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recurring.invoice_items.each do |item| %>
+              <tr>
+                <td><%= item[:description] %></td>
+                <td class="unseen text-center"><%= item[:qty] %></td>
+                <td class="text-right"><%= item[:unit_price] %> <%= @recurring.currency %></td>
+                <td class="text-right"><%= (item[:unit_price].to_f * item[:qty].to_f).round(2) %> <%= @recurring.currency %></td>
+              </tr>
+            <% end %>
+            <!--<tr>
+              <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
+              <td class="text-right">$0.00</td>
+            </tr>-->
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><strong><%= @recurring.tax_name || 'Tax' %></strong></td>
+              <td class="text-right"><%= @recurring.tax_amount %> <%= @recurring.currency %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><strong>Subtotal</strong></td>
+              <td class="text-right"><%= @recurring.subtotal %> <%= @recurring.currency %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><strong>Total</strong></td>
+              <td class="text-right"><strong><%= @recurring.total %> <%= @recurring.currency %></strong></td>
+            </tr>
+
+            <tr>
+              <td colspan="2" rowspan="4" class="no-border"><br><p><%= @recurring.notes %></p>
+              <!--<h5 class="text-right semi-bold">Thank you for your business</h5></td>-->
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1 col-xs-1">
+    <div class="invoice-button-action-set">
+
+      <p>
+        <a href="<%= recurring_invoice_path %>" class="btn" data-confirm="Are you sure?" data-method="delete" rel="nofollow"><i class="fa fa-trash-o"></i></a>
+      </p>
+
+      <!--<p>
+        <button class="btn" type="button"><i class="fa fa-print"></i></button>
+      </p>-->
+    </div>
+  </div>
+</div>

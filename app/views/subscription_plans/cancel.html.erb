@@ -1,0 +1,21 @@
+<div class="page-title">
+  <h3>Delete <span class="semi-bold">Account?</span></h3>
+</div>
+
+<div class="col-md-11 row">
+  <div class="grid simple">
+    <div class="grid-body no-border plan-cencel-message">
+    By canceling your plan, we will imidiately delete your card information from our systems, won’t make any more charges, delete your account and <strong>delete all your data, including your invoices</strong>.
+    </div>
+  </div>
+</div>
+
+<%= form_tag '/subscription_plans/cancel', method: :delete, class: 'col-md-11 row' do %>
+
+  <div>
+    <input type="checkbox" id="understand" required>
+    <label for="understand" class="inline" id="i-understand">I understand that all my data will be deleted.</label>
+  </div><br>
+
+  <input type="submit" class="btn btn-danger" value="CANCEL AND DELETE MY ACCOUNT">
+<% end %>

@@ -1,0 +1,18 @@
+pusher_app_id: xxx
+pusher_key: xxx
+pusher_secret: xxx
+stripe_api_key: xxx
+stripe_publishable_key: xxx
+
+STRIPE_SECRET: xxx
+MANDRILL_APIKEY: xxx-fHUWA1iQ
+MANDRILL_USERNAME: xxx@heroku.com
+
+BRAINTREE_ENV: 'sandbox'
+BRAINTREE_MERCHANT_ID: xxx
+BRAINTREE_PUBLIC_KEY: xxx
+BRAINTREE_PRIVATE_KEY: xxx
+
+production:
+  stripe_api_key: xxx
+  stripe_publishable_key: xxx

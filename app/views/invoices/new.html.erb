@@ -1,0 +1,18 @@
+<div class="page-title">
+  <h3>New <span class="semi-bold">Invoice</span></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-11">
+    <% if Invoice.remaining_for_user(current_user) <= 0 %>
+      <div class="grid simple ">
+        <div class="grid-body no-border plan-cencel-message">
+          You have reached your invoice limit. <%= link_to 'Upgrade your plan', subscription_plans_path %> to create more invoices.
+        </div>
+      </div>
+    <% end %>
+    <div class="grid simple">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

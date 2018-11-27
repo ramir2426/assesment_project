@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row login-container">
+    <div class="col-md-4 center">
+      <div class="grid simple">
+        <div class="grid-body no-border">
+          <br>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="row-fluid">
+              <h3>Login</h3>
+              <p>Enter your email and password to login</p>
+              <div class="row form-row">
+                <div class="input-append col-md-12 col-sm-12 primary">
+                  <%= f.email_field :email, autofocus: true, class: 'form-control', id: 'appendedInput', placeholder: 'Email' %>
+                </div>
+              </div>
+              <div class="row form-row">
+                <div class="input-append col-md-12 col-sm-12 primary">
+                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'appendedInput2', placeholder: 'Password' %>
+                </div>
+              </div>
+
+              <div class="row form-row">
+                <div class="input-append col-md-12 col-sm-12 primary">
+                  <%= f.submit "Login", class: 'btn btn-primary btn-cons-md' %>
+                </div>
+              </div>
+
+              <%= render "devise/shared/links" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

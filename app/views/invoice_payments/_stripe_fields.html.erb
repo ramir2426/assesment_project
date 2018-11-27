@@ -1,0 +1,40 @@
+<%= form_tag '/charge_card.json', class: 'payment-form', id: 'payment-form-stripe' do %>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" placeholder="Card Number" autocomplete="cc-number" class="form-control cc-num" data-stripe="number" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" class="form-control cc-exp" placeholder="Expiration (MM / YYYY)" data-stripe="exp-month" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="controls">
+      <input type="text" placeholder="CVC" data-stripe="cvc" class="form-control cc-cvc" required />
+    </div>
+  </div>
+
+  <% if @recurring %>
+    <div class="form-group">
+      <div class="controls rec-con">
+        <input type="checkbox" id="recurring-confirmation" required>
+        <label for="recurring-confirmation">My card will be charged every <%= @recurring.interval_in_days %> days</label>
+      </div>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag :secure_id, @invoice.secure_id %>
+  <%= hidden_field_tag :gateway, @invoice.payment_gateway %>
+
+  <div class="payment-errors"></div>
+
+  <input type="submit" value="PAY NOW" class="btn pay-btn btn-success btn-cons"></submit>
+<% end %>
+
+<script type="text/javascript">
+  Stripe.setPublishableKey('<%= @invoice.user.stripe_public_key %>');
+</script>

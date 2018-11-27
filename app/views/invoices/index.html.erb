@@ -1,0 +1,98 @@
+<div class="page-title">
+  <h3>Invoices - <span class="semi-bold">List</span></h3>
+  <%= link_to 'New Invoice', new_invoice_path, class: 'btn btn-primary f-right' %>
+</div>
+
+<!-- <div class="row">
+  <div class="col-md-4">
+    <div class="grid simple ">
+      <div class="grid-body invoice-overview-box">
+        <h5 class="text-center">PAID</h5>
+        <h5 class="text-center"><span class="semi-bold">$32,020</span></h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="grid simple ">
+      <div class="grid-body invoice-overview-box">
+        <h5 class="text-center">OWING</h5>
+        <h5 class="text-center"><span class="semi-bold">$1,305</span></h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="grid simple ">
+      <div class="grid-body invoice-overview-box">
+        <h5 class="text-center">OVERDUE</h5>
+        <h5 class="text-center"><span class="semi-bold">$0</span></h5>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row dataTables_wrapper">
+  <div class="col-md-12">
+
+    <div class="grid simple ">
+      <div class="grid-body no-border">
+          <table class="table invoices">
+            <thead>
+              <tr>
+                <th style="width:7%">Invoice #</th>
+                <th style="width:10%">Date Issued</th>
+                <th style="width:10%">Due Date</th>
+                <th style="width:30%">Client</th>
+                <th style="width:10%">Amount</th>
+                <th style="width:6%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @invoices.each do |invoice| %>
+                <tr class="item">
+                  <td class="v-align-middle"><%= link_to invoice.invoice_number, invoice_path(invoice) %></td>
+
+                  <td class="v-align-middle"><%= link_to invoice.date_issued, invoice_path(invoice) %></td>
+
+                  <td class="v-align-middle"><%= link_to invoice.due_date, invoice_path(invoice) %></td>
+
+                  <td class="v-align-middle">
+                    <span class="muted"><%= invoice.client.business_name %></span>
+                  </td>
+
+                  <td>
+                    <span class="muted"><%= link_to invoice.total, invoice_path(invoice) %> <%= invoice.currency %></span>
+                  </td>
+
+                  <td class="v-align-middle">
+                    <span class="green"><%= link_to invoice.status, invoice_path(invoice) %></span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="dataTables_paginate paging_bootstrap pagination">
+                <!--<ul>
+                  <li class="prev disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li class="next"><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>-->
+
+                <%= paginate @invoices %>
+              </div>
+
+              <!--<div class="dataTables_info" id="example2_info">Showing <b>1 to 10</b> of 57 entries</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+Your payment of the invoice #<%= @invoice.invoice_number %> has been received.
+<br><br>
+Amount Paid: <%= @invoice.total %> <%= @invoice.currency %>
+<br><br>
+You can view the invoice from the following link:
+<br><br>
+<%= link_to nil, public_show_invoice_url(secure_id: @invoice.secure_id) %>
